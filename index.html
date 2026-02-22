@@ -2633,7 +2633,7 @@
 
 		async function fetchServicesData() {
 			try {
-				const res = await fetch('https://raw.githubusercontent.com/Snow-Domain-Smart-Fox/test-data/refs/heads/main/services.json', { cache: 'no-cache' });
+				const res = await fetch('https://dash.amlg.top/services.json', { cache: 'no-cache' });
 				if (!res.ok) throw new Error('加载失败');
 				return await res.json();
 			} catch (e) {
