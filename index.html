@@ -1419,18 +1419,7 @@
 						如果不考虑版本，请选择 <code>Dev</code> 类。
 					</div>
 					<div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 16px;">
-						<div class="branch-toggle"
-							style="display: inline-flex; background: var(--border-color); border-radius: 50px; padding: 4px; gap: 4px;">
-							<input type="radio" name="branch" id="branch-release" value="release" checked
-								style="display: none;">
-							<label for="branch-release"
-								style="padding: 8px 16px; border-radius: 50px; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: var(--text-light); transition: all 0.2s;"
-								onclick="this.parentElement.querySelectorAll('label').forEach(l=>l.style.background='');this.style.background='var(--card-bg)';this.style.color='var(--primary-color)';selectedBranch='release'">Release</label>
-							<input type="radio" name="branch" id="branch-dev" value="dev" style="display: none;">
-							<label for="branch-dev"
-								style="padding: 8px 16px; border-radius: 50px; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: var(--text-light); transition: all 0.2s;"
-								onclick="this.parentElement.querySelectorAll('label').forEach(l=>l.style.background='');this.style.background='var(--card-bg)';this.style.color='var(--primary-color)';selectedBranch='dev'">Dev</label>
-						</div>
+						
 						<button id="startBtn" class="action-btn"
 							style="background: var(--primary-color); border-color: var(--primary-color); color: #fff;"
 							onclick="startTest()">
@@ -1604,9 +1593,9 @@
 		}
 
 		// 解析 versions.json 中的版本号
-		function parseVersion(data, branch) {
+		function parseVersion(data) {
 			try {
-				return data?.["Amazing Luogu"]?.[branch] || null;
+				return data?.["Amazing Luogu"]?.release || null;
 			} catch {
 				return null;
 			}
@@ -1731,7 +1720,7 @@
 
 			let version = null, versionTime = null, versionOk = false;
 			if (versionRes.ok && versionRes.data) {
-				version = parseVersion(versionRes.data, selectedBranch);
+				version = parseVersion(versionRes.data);
 				versionTime = versionRes.duration;
 				versionOk = !!version;
 			}
@@ -1797,7 +1786,7 @@
 
 		// 开始测速
 		async function startTest() {
-			selectedBranch = document.querySelector('input[name="branch"]:checked')?.value || 'release';
+			selectedBranch = 'release';
 
 			const btn = document.getElementById('startBtn');
 			const installBtn = document.getElementById('installBtn');
@@ -1859,16 +1848,6 @@
 
 		// 初始化下载页
 		function initDownloadPage() {
-			// 绑定 branch 切换事件（如果未使用内联 onclick）
-			document.querySelectorAll('input[name="branch"]').forEach(radio => {
-				radio.addEventListener('change', (e) => {
-					selectedBranch = e.target.value;
-					// 可选：自动重新测速
-					// if (testResults.length > 0) startTest();
-				});
-			});
-
-			// 初始化渲染
 			renderResults();
 		}
 	</script>
