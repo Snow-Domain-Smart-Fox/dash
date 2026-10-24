@@ -1,413 +1,2862 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Amazing Luogu 面板" />
-    <title>Amazing Luogu</title>
-    <style>
-      :root {
-        --bg: #f5f7fb;
-        --bg-strong: #eef3ff;
-        --card: #ffffff;
-        --card-alt: #f8fafc;
-        --text: #1f2937;
-        --muted: #667085;
-        --border: #e5e7eb;
-        --primary: #2563eb;
-        --primary-soft: rgba(37, 99, 235, 0.08);
-        --success: #16a34a;
-        --warning: #d97706;
-        --danger: #dc2626;
-        --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-        --radius: 16px;
-      }
 
-      * { box-sizing: border-box; }
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<meta name="description" content="Amazing Luogu 国际" />
+	<link rel="icon" type="image/svg+xml" href="./icon.png" />
+	<title>Amazing Luogu</title>
+	<link rel="stylesheet" href="/public/fontawesome.all.min.css" />
+	<link rel="preload" href="/public/lwsw.min.css" as="style"
+		crossorigin="anonymous" onload="this.rel='stylesheet'" />
+	<link rel="preload"
+		href="/public/aol.min.css" as="style"
+		crossorigin="anonymous" onload="this.rel='stylesheet'" />
+	<link rel="preload"
+		href="/public/gd.min.css" as="style"
+		crossorigin="anonymous" onload="this.rel='stylesheet'" />
+	<link rel="stylesheet"
+		href="/public/md.css" />
+	<link rel="stylesheet"
+		href="/public/fw.css" />
+	<link rel="preload" href="/public/kt.min.css" as="style"
+		crossorigin="anonymous" onload="this.rel='stylesheet'" />
+	<link rel="stylesheet" href="/public/am.min.css" />
+	<style>
+		:root {
+			--bg-color: #fff;
+			--card-bg: #fff;
+			--text-color: #24292f;
+			--text-light: #656d76;
+			--border-color: #d0d7de;
+			--primary-color: #0969da;
+			--border-radius-sm: 8px
+		}
 
-      body {
-        margin: 0;
-        font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-        background: linear-gradient(180deg, var(--bg-strong) 0%, var(--bg) 260px);
-        color: var(--text);
-      }
+		body {
+			margin: 0;
+			font-family: LXGW WenKai Screen, system-ui, -apple-system, sans-serif;
+			background: var(--bg-color);
+			color: var(--text-color);
+			line-height: 1.5
+		}
 
-      a { color: inherit; text-decoration: none; }
+		.markdown-body {
+			font-size: 16px;
+			line-height: 1.6;
+			color: var(--text-color)
+		}
 
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.9);
-        border-bottom: 1px solid var(--border);
-      }
+		#goBtn {
+			position: absolute;
+			right: 68px;
+			top: 3px;
+			bottom: 4px;
+			padding: 0 16px;
+			background: var(--primary-color);
+			color: #fff;
+			border: none;
+			border-radius: var(--border-radius-sm);
+			cursor: pointer;
+			font-weight: 500;
+			transition: background .2s
+		}
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
+		#urlInput {
+			width: 73%;
+			padding: 12px 16px;
+			font-size: 1rem;
+			border: 1px solid var(--border-color);
+			border-radius: var(--border-radius-sm);
+			background: var(--card-bg);
+			color: var(--text-color);
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, .05);
+			transition: border-color .2s
+		}
 
-      .topbar-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 72px;
-        gap: 16px;
-      }
+		.markdown-body .katex-display {
+			overflow-x: auto;
+			overflow-y: hidden
+		}
 
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 700;
-        font-size: 1.1rem;
-      }
+		.katex-display .katex {
+			display: block
+		}
 
-      .brand-mark {
-        width: 36px;
-        height: 36px;
-        border-radius: 12px;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(135deg, #2563eb, #60a5fa);
-        color: white;
-        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.28);
-      }
+		.notice {
+			margin-block: 1em;
+			margin-inline: 40px;
+			unicode-bidi: isolate;
+			padding: 10px 20px;
+			margin: 0 0 20px;
+			border-left: 5px solid #eee;
+			margin-top: 30px;
+			border-radius: 15px;
+			background: var(--card-bg);
+			text-align: left
+		}
 
-      .hero {
-        padding: 44px 0 18px;
-      }
+		.notice h2 {
+			margin-top: 0
+		}
 
-      .hero-card {
-        background: linear-gradient(135deg, rgba(37,99,235,0.06), rgba(96,165,250,0.03));
-        border: 1px solid rgba(37,99,235,0.08);
-        border-radius: 24px;
-        padding: 28px 24px;
-        box-shadow: var(--shadow);
-      }
+		.important-notice {
+			border-left-color: #f85149
+		}
 
-      .hero-title {
-        margin: 0;
-        font-size: clamp(2rem, 4vw, 3rem);
-        line-height: 1.1;
-      }
+		.important-notice i {
+			color: #f85149
+		}
 
-      .hero-sub {
-        color: var(--muted);
-        margin: 12px 0 0;
-        font-size: 1.05rem;
-      }
+		.flowing-light {
+			animation: flowing-light 1s ease-in-out infinite alternate .1s;
+			color: #444;
+			text-shadow: 0 0 0 #444
+		}
 
-      .toolbar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 22px;
-      }
+		@keyframes flowing-light {
+			to {
+				text-shadow: 0 0 1px #fff, 0 0 1px #fff, 0 0 3px #fff, 0 0 6px #126fcc, 0 0 7px #126fcc, 0 0 11px #126fcc;
+				color: #aaa
+			}
+		}
 
-      .search-box,
-      .filter-box {
-        border: 1px solid var(--border);
-        background: rgba(255,255,255,0.8);
-        border-radius: 12px;
-        min-height: 44px;
-        padding: 0 14px;
-        font-size: 0.96rem;
-      }
+		.page-layout {
+			display: flex;
+			gap: 24px;
+			max-width: 1400px;
+			margin: 0 auto
+		}
 
-      .search-box {
-        flex: 1 1 260px;
-      }
+		.main-content {
+			flex: 1;
+			min-width: 0
+		}
 
-      .filter-box {
-        min-width: 160px;
-      }
+		.toc-sidebar {
+			width: 240px;
+			flex-shrink: 0;
+			position: sticky;
+			top: 80px;
+			align-self: flex-start;
+			background: var(--card-bg);
+			border-radius: var(--border-radius-sm);
+			padding: 16px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+			max-height: calc(100vh - 100px);
+			overflow-y: auto
+		}
 
-      .main {
-        padding: 18px 0 56px;
-      }
+		.toc-sidebar h4 {
+			margin: 0 0 12px;
+			font-size: 1rem;
+			color: var(--text-color);
+			border-bottom: 1px solid var(--border-color);
+			padding-bottom: 8px
+		}
 
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 18px;
-      }
+		.toc-content a {
+			display: block;
+			padding: 4px 0;
+			color: var(--text-light);
+			text-decoration: none;
+			font-size: .9rem;
+			transition: color .2s
+		}
 
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 18px;
-        box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-      }
+		.toc-content a:hover {
+			color: var(--primary-color)
+		}
 
-      .card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-        border-color: rgba(37, 99, 235, 0.25);
-      }
+		.toc-content .h2 {
+			padding-left: 12px
+		}
 
-      .card-head {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 14px;
-      }
+		.toc-content .h3 {
+			padding-left: 24px
+		}
 
-      .icon {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        background: var(--primary-soft);
-        display: grid;
-        place-items: center;
-        color: var(--primary);
-        font-size: 1.2rem;
-        flex-shrink: 0;
-      }
+		.toc-content .h4 {
+			padding-left: 36px
+		}
 
-      .icon svg {
-        width: 22px;
-        height: 22px;
-        display: block;
-      }
+		.toc-content .h5 {
+			padding-left: 48px
+		}
 
-      .card-title {
-        margin: 0;
-        font-size: 1.08rem;
-        font-weight: 700;
-      }
+		.toc-content .h6 {
+			padding-left: 60px
+		}
 
-      .card-desc {
-        color: var(--muted);
-        line-height: 1.6;
-        margin: 0 0 16px;
-        min-height: 52px;
-      }
+		.article-header {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			align-items: center;
+			margin-bottom: 16px;
+			padding-bottom: 12px;
+			border-bottom: 1px solid var(--border-color)
+		}
 
-      .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 14px;
-      }
+		.action-btn {
+			padding: 6px 12px;
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+			border-radius: var(--border-radius-sm);
+			color: var(--text-color);
+			cursor: pointer;
+			font-size: .9rem;
+			transition: all .2s;
+			display: inline-flex;
+			align-items: center;
+			gap: 6px
+		}
 
-      .tag {
-        display: inline-flex;
-        align-items: center;
-        border-radius: 999px;
-        padding: 5px 10px;
-        background: var(--card-alt);
-        border: 1px solid var(--border);
-        color: var(--muted);
-        font-size: 0.72rem;
-      }
+		.action-btn:hover {
+			background: var(--primary-color);
+			border-color: var(--primary-color);
+			color: #fff
+		}
 
-      .meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 10px;
-        color: var(--muted);
-        font-size: 0.82rem;
-      }
+		.save-time {
+			margin-left: auto;
+			font-size: .85rem;
+			color: var(--text-light)
+		}
 
-      .meta-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-      }
+		@media(max-width:1100px) {
+			.page-layout {
+				flex-direction: column
+			}
 
-      .status {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 10px;
-        border-radius: 999px;
-        font-size: 0.72rem;
-        font-weight: 600;
-        white-space: nowrap;
-      }
+			.toc-sidebar {
+				width: 100%;
+				position: static;
+				max-height: 300px
+			}
 
-      .status.active {
-        background: rgba(22, 163, 74, 0.1);
-        color: var(--success);
-      }
+			.save-time {
+				margin-left: 0;
+				width: 100%;
+				text-align: right
+			}
+		}
 
-      .status.maintenance {
-        background: rgba(217, 119, 6, 0.1);
-        color: var(--warning);
-      }
+		.markdown-body h1,
+		.markdown-body h2,
+		.markdown-body h3,
+		.markdown-body h4,
+		.markdown-body h5,
+		.markdown-body h6 {
+			scroll-margin-top: 80px;
+			scroll-padding-top: 80px
+		}
 
-      .status.inactive,
-      .status.deprecated {
-        background: rgba(148, 163, 184, 0.12);
-        color: #475569;
-      }
+		.global-loading {
+			position: fixed;
+			inset: 0;
+			background: var(--bg-color);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 9999;
+			transition: opacity .3s, visibility .3s
+		}
 
-      .status-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        display: inline-block;
-        background: currentColor;
-      }
+		.global-loading.hidden {
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none
+		}
 
-      .empty {
-        background: var(--card);
-        border: 1px dashed var(--border);
-        border-radius: var(--radius);
-        color: var(--muted);
-        text-align: center;
-        padding: 54px 20px;
-      }
+		.loading-spinner {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 16px;
+			color: var(--text-color)
+		}
 
-      @media (max-width: 768px) {
-        .topbar-inner {
-          flex-direction: column;
-          justify-content: center;
-          padding: 14px 0;
-        }
+		.loading-spinner i {
+			font-size: 2.5rem;
+			color: var(--primary-color)
+		}
 
-        .toolbar {
-          flex-direction: column;
-        }
+		.loading-spinner span {
+			font-size: 1rem;
+			color: var(--text-light)
+		}
 
-        .search-box, .filter-box {
-          width: 100%;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="container topbar-inner">
-        <div class="brand">
-          <div class="brand-mark">A</div>
-          <span>Amazing Luogu</span>
-        </div>
-      </div>
-    </header>
+		.loading {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 40px;
+			color: var(--text-light);
+			gap: 12px
+		}
 
-    <section class="hero">
-      <div class="container">
-        <div class="hero-card">
-          <h1 class="hero-title">服务导航</h1>
-          <p class="hero-sub">快速访问各类工具、API 与社区服务。</p>
+		.loading i {
+			color: var(--primary-color);
+			animation: spin 1s linear infinite
+		}
 
-          <div class="toolbar">
-            <input id="searchInput" class="search-box" type="text" placeholder="搜索服务名称 / 标签 / 描述..." />
-            <select id="categoryFilter" class="filter-box">
-              <option value="all">全部分类</option>
-              <option value="工具">工具</option>
-              <option value="API">API</option>
-              <option value="社区">社区</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </section>
+		@keyframes spin {
+			to {
+				transform: rotate(360deg)
+			}
+		}
 
-    <main class="main">
-      <div class="container">
-        <div id="serviceGrid" class="grid"></div>
-      </div>
-    </main>
+		#not-found-page {
+			animation: fadeIn .3s ease-out
+		}
 
-    <script>
-      const serviceGrid = document.getElementById('serviceGrid');
-      const searchInput = document.getElementById('searchInput');
-      const categoryFilter = document.getElementById('categoryFilter');
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(10px)
+			}
 
-      function safeText(value) {
-        return (value ?? '').toString();
-      }
+			to {
+				opacity: 1;
+				transform: translateY(0)
+			}
+		}
 
-      function escapeHtml(value) {
-        return safeText(value)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
+		button {
+			font-family: LXGW Wenkai Screen
+		}
 
-      function statusLabel(status) {
-        const map = {
-          active: '在线',
-          maintenance: '维护中',
-          inactive: '停用',
-          deprecated: '废弃'
-        };
-        return map[status] || '未知';
-      }
+		@media(prefers-color-scheme:dark) {
+			:root {
+				--bg-color: #0d1117;
+				--card-bg: #161b22;
+				--text-color: #e6edf3;
+				--text-light: #8b949e;
+				--border-color: #30363d;
+				--primary-color: #58a6ff
+			}
 
-      function renderServices(items) {
-        if (!items.length) {
-          serviceGrid.innerHTML = '<div class="empty">没有找到匹配的服务。</div>';
-          return;
-        }
+			.hljs,
+			.code-container,
+			pre {
+				background: #282c34 !important;
+				color: #abb2bf !important
+			}
 
-        serviceGrid.innerHTML = items.map((item) => {
-          const iconMarkup = item.iconSvg
-            ? item.iconSvg
-            : item.icon
-              ? `<i class="${escapeHtml(item.icon)}"></i>`
-              : '<i>◎</i>';
+			.markdown-body code {
+				background-color: #282c34;
+				color: #abb2bf
+			}
 
-          const tags = (item.tags || []).slice(0, 4).map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('');
+			.markdown-body blockquote {
+				color: #999;
+				border-left-color: #444
+			}
 
-          return `
-            <article class="card">
-              <div class="card-head">
-                <div class="icon">${iconMarkup}</div>
-                <h2 class="card-title">${escapeHtml(item.name)}</h2>
-              </div>
+			.markdown-body th,
+			.markdown-body td {
+				border-color: #444
+			}
 
-              <p class="card-desc">${escapeHtml(item.description || '暂无简介')}</p>
+			.service-card {
+				background: #161b22;
+				border-color: #30363d
+			}
 
-              <div class="tags">${tags || '<span class="tag">未分类</span>'}</div>
+			.service-card:hover {
+				border-color: #58a6ff
+			}
 
-              <div class="meta">
-                <span class="meta-item"><span class="status ${escapeHtml(item.status || 'inactive')}"><span class="status-dot"></span>${statusLabel(item.status)}</span></span>
-                <span class="meta-item">${escapeHtml(item.category || '其他')}</span>
-              </div>
-            </article>
-          `;
-        }).join('');
-      }
+			.search-input,
+			.filter-select {
+				background: #161b22;
+				border-color: #30363d;
+				color: #e6edf3
+			}
+		}
 
-      function filterServices(data) {
-        const keyword = searchInput.value.trim().toLowerCase();
-        const category = categoryFilter.value;
+		.page-header {
+			margin-bottom: 24px;
+			padding-bottom: 16px;
+			border-bottom: 1px solid var(--border-color)
+		}
 
-        return data.filter((item) => {
-          const matchesKeyword = !keyword || [
-            item.name,
-            item.description,
-            item.category,
-            ...(item.tags || [])
-          ].join(' ').toLowerCase().includes(keyword);
+		.page-header h1 {
+			margin: 0 0 8px;
+			font-size: 1.5rem;
+			color: var(--text-color);
+			display: flex;
+			align-items: center;
+			gap: 12px
+		}
 
-          const matchesCategory = category === 'all' || item.category === category;
-          return matchesKeyword && matchesCategory;
-        });
-      }
+		.page-subtitle {
+			margin: 0;
+			color: var(--text-light);
+			font-size: .95rem
+		}
 
-      fetch('./services.json')
-        .then((response) => response.json())
-        .then((data) => {
-          const all = Array.isArray(data.services) ? data.services : [];
-          const update = () => renderServices(filterServices(all));
-          searchInput.addEventListener('input', update);
-          categoryFilter.addEventListener('change', update);
-          update();
-        })
-        .catch(() => {
-          serviceGrid.innerHTML = '<div class="empty">加载服务列表失败，请稍后再试。</div>';
-        });
-    </script>
-  </body>
+		.services-filter {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 20px;
+			flex-wrap: wrap
+		}
+
+		.search-input,
+		.filter-select {
+			padding: 8px 12px;
+			border: 1px solid var(--border-color);
+			border-radius: var(--border-radius-sm);
+			background: var(--card-bg);
+			color: var(--text-color);
+			font-size: .9rem;
+		}
+
+		.services-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 16px
+		}
+
+		.service-card {
+			background: var(--card-bg);
+			border-radius: var(--border-radius-sm);
+			padding: 16px;
+			border: 1px solid var(--border-color);
+			transition: transform .2s, box-shadow .2s;
+			cursor: pointer
+		}
+
+		.service-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+			border-color: var(--primary-color)
+		}
+
+		.service-card-header {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 12px
+		}
+
+		.service-card-header i {
+			font-size: 1.2rem;
+			color: var(--primary-color)
+		}
+
+		.service-card-title {
+			font-weight: 600;
+			color: var(--text-color);
+			margin: 0;
+			font-size: 1.1rem
+		}
+
+		.service-card-desc {
+			color: var(--text-light);
+			font-size: .9rem;
+			margin: 0 0 12px;
+			line-height: 1.5
+		}
+
+		.service-tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 6px
+		}
+
+		.service-tag {
+			padding: 2px 8px;
+			background: var(--border-color);
+			border-radius: 12px;
+			font-size: .75rem;
+			color: var(--text-color)
+		}
+
+		.service-meta {
+			display: flex;
+			gap: 16px;
+			flex-wrap: wrap;
+			margin-bottom: 20px;
+			padding: 12px 16px;
+			background: var(--card-bg);
+			border-radius: var(--border-radius-sm);
+			font-size: .9rem;
+			color: var(--text-light)
+		}
+
+		.service-meta span {
+			display: flex;
+			align-items: center;
+			gap: 6px
+		}
+
+		.service-meta i:not(.status-badge i) {
+			color: var(--primary-color)
+		}
+
+		.empty-state {
+			text-align: center;
+			padding: 60px 20px;
+			color: var(--text-light)
+		}
+
+		.empty-state i {
+			font-size: 3rem;
+			margin-bottom: 16px;
+			opacity: .6
+		}
+
+		@media(max-width:768px) {
+			.services-grid {
+				grid-template-columns: 1fr
+			}
+
+			.services-filter {
+				flex-direction: column
+			}
+		}
+
+		select {
+			font-family: LXGW WenKai Screen !important;
+		}
+
+		.service-icon {
+			flex-shrink: 0;
+			color: var(--primary-color);
+		}
+
+		.service-icon svg {
+			display: block;
+			fill: none;
+		}
+
+		.service-icon i {
+			display: block;
+			font-size: inherit;
+		}
+
+		.service-card-icon {
+			width: 28px;
+			height: 28px;
+			font-size: 1.2rem;
+		}
+
+		.service-meta-icon {
+			width: 20px;
+			height: 20px;
+			font-size: 1rem;
+		}
+
+		.service-meta-item {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.service-card:hover .service-icon svg,
+		.service-card:hover .service-icon i {
+			transform: scale(1.1);
+			transition: transform 0.2s ease;
+		}
+
+		.status-badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+			padding: 4px 10px;
+			border-radius: 12px;
+			font-size: 0.75rem;
+			font-weight: 500;
+			white-space: nowrap;
+		}
+
+		.status-badge i {
+			font-size: 0.7rem;
+		}
+
+		.status-active {
+			background: rgba(46, 160, 67, 0.15);
+			color: #30a14e !important;
+			border: 1px solid rgba(46, 160, 67, 0.3);
+		}
+
+		.status-maintenance {
+			background: rgba(210, 153, 34, 0.15);
+			color: #b08800 !important;
+			border: 1px solid rgba(210, 153, 34, 0.3);
+		}
+
+		.status-inactive {
+			background: rgba(101, 109, 118, 0.15);
+			color: #656d76 !important;
+			border: 1px solid rgba(101, 109, 118, 0.3);
+		}
+
+		.status-deprecated {
+			background: rgba(218, 54, 51, 0.15);
+			color: #cb2431 !important;
+			border: 1px solid rgba(218, 54, 51, 0.3);
+		}
+
+		.service-card-meta {
+			margin-bottom: 8px;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			.status-active {
+				background: rgba(46, 160, 67, 0.25);
+				color: #4ac26b !important;
+			}
+
+			.status-maintenance {
+				background: rgba(210, 153, 34, 0.25);
+				color: #e3b341 !important;
+			}
+
+			.status-inactive {
+				background: rgba(139, 148, 158, 0.25);
+				color: #8b949e !important;
+			}
+
+			.status-deprecated {
+				background: rgba(248, 81, 73, 0.25);
+				color: #f85149 !important;
+			}
+		}
+
+		#aurora {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 0;
+			display: block;
+		}
+
+		.hero-content {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			padding: 40px 20px;
+			max-width: 800px;
+			pointer-events: none;
+		}
+
+		.hero-content>* {
+			pointer-events: auto;
+		}
+
+		.hero-content h1 {
+			font-size: 2.5rem;
+			margin: 0 0 16px 0;
+			color: var(--text-color);
+			font-weight: 700;
+			letter-spacing: 1px;
+		}
+
+		.hero-content p {
+			font-size: 1.25rem;
+			color: var(--text-light);
+			margin: 0 0 32px 0;
+			font-weight: 300;
+		}
+
+		.hero-buttons {
+			display: flex;
+			gap: 16px;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		.hero-btn {
+			padding: 12px 28px;
+			border-radius: var(--border-radius-sm);
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 1rem;
+			transition: all 0.2s ease;
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			cursor: pointer;
+			border: none;
+		}
+
+		.hero-btn.primary {
+			background: var(--primary-color);
+			color: #fff;
+			box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
+		}
+
+		.hero-btn.primary:hover {
+			background: #0859b5;
+			transform: translateY(-2px);
+			box-shadow: 0 6px 16px rgba(9, 105, 218, 0.4);
+		}
+
+		.hero-btn.secondary {
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+			color: var(--text-color);
+		}
+
+		.hero-btn.secondary:hover {
+			border-color: var(--primary-color);
+			color: var(--primary-color);
+			transform: translateY(-2px);
+		}
+
+		@media (max-width: 768px) {
+			.hero-content h1 {
+				font-size: 1.8rem;
+			}
+
+			.hero-content p {
+				font-size: 1rem;
+			}
+
+			.hero-buttons {
+				flex-direction: column;
+			}
+
+			.hero-btn {
+				justify-content: center;
+			}
+		}
+
+		#download-page .download-content {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		#download-page .download-card {
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+			border-radius: var(--border-radius-sm);
+			padding: 24px;
+			margin-bottom: 20px;
+		}
+
+		#download-page .download-card h3 {
+			margin: 0 0 12px 0;
+			color: var(--text-color);
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		#download-page .download-card p {
+			margin: 0 0 16px 0;
+			color: var(--text-light);
+			line-height: 1.6;
+		}
+
+		#download-page .version-tag {
+			display: inline-block;
+			padding: 2px 8px;
+			background: var(--primary-color);
+			color: #fff;
+			border-radius: 12px;
+			font-size: 0.75rem;
+			font-weight: 500;
+		}
+
+		#download-page .download-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 10px 20px;
+			background: var(--primary-color);
+			color: #fff;
+			border-radius: var(--border-radius-sm);
+			text-decoration: none;
+			font-weight: 500;
+			transition: all 0.2s;
+		}
+
+		#download-page .download-btn:hover {
+			background: #0859b5;
+			transform: translateY(-2px);
+		}
+
+		#download-page .coming-soon {
+			text-align: center;
+			padding: 60px 20px;
+		}
+
+		#download-page .coming-soon i {
+			font-size: 3rem;
+			color: var(--text-light);
+			margin-bottom: 20px;
+			opacity: 0.6;
+		}
+
+		#download-page .coming-soon p {
+			color: var(--text-light);
+			font-size: 1.1rem;
+		}
+
+		#ai-page {
+			display: flex;
+			flex-direction: column;
+			height: calc(100vh - 60px);
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 16px;
+			gap: 12px;
+		}
+
+		.ai-header {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 12px 16px;
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+			border-radius: var(--border-radius-sm);
+			flex-shrink: 0;
+		}
+
+		.ai-avatar {
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #0284c7;
+			flex-shrink: 0;
+		}
+
+		.ai-avatar svg {
+			width: 28px;
+			height: 28px;
+		}
+
+		.ai-info {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.ai-info h2 {
+			margin: 0;
+			font-size: 1.1rem;
+			color: var(--text-color);
+			font-weight: 600;
+		}
+
+		.ai-status {
+			margin: 4px 0 0 0;
+			font-size: 0.85rem;
+			color: var(--text-light);
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.status-dot {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: #22c55e;
+			animation: pulse 2s infinite;
+		}
+
+		@keyframes pulse {
+
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0.5;
+			}
+		}
+
+		.ai-messages {
+			flex: 1;
+			overflow-y: auto;
+			padding: 8px 4px;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			scroll-behavior: smooth;
+		}
+
+		.ai-messages::-webkit-scrollbar {
+			width: 6px;
+		}
+
+		.ai-messages::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		.ai-messages::-webkit-scrollbar-thumb {
+			background: var(--border-color);
+			border-radius: 3px;
+		}
+
+		.ai-messages::-webkit-scrollbar-thumb:hover {
+			background: var(--text-light);
+		}
+
+		.ai-bubble {
+			max-width: 85%;
+			padding: 12px 16px;
+			border-radius: 12px;
+			line-height: 1.6;
+			word-break: break-word;
+			animation: fadeIn 0.2s ease-out;
+			position: relative;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(8px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.ai-bubble.user {
+			align-self: flex-end;
+			background: var(--primary-color);
+			color: #fff;
+			border-bottom-right-radius: 4px;
+		}
+
+		.ai-bubble.bot {
+			align-self: flex-start;
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+			color: var(--text-color);
+			border-bottom-left-radius: 4px;
+		}
+
+		.ai-bubble.bot .markdown-body {
+			font-size: 0.95rem;
+		}
+
+		.ai-bubble.bot .markdown-body p {
+			margin: 0 0 8px 0;
+		}
+
+		.ai-bubble.bot .markdown-body p:last-child {
+			margin: 0;
+			font-style: italic;
+			color: var(--text-light);
+			border-top: 1px dashed var(--border-color);
+		}
+
+		.ai-bubble.bot .markdown-body code {
+			background: rgba(125, 125, 125, 0.15);
+			padding: 2px 6px;
+			border-radius: 4px;
+			font-family: monospace;
+			font-size: 0.9em;
+		}
+
+		.ai-bubble.bot .markdown-body pre {
+			background: var(--bg-color);
+			border: 1px solid var(--border-color);
+			padding: 12px;
+			border-radius: 6px;
+			overflow-x: auto;
+			margin: 8px 0;
+		}
+
+		.ai-bubble.bot .markdown-body pre code {
+			background: transparent;
+			padding: 0;
+		}
+
+		.ai-bubble.bot .markdown-body blockquote {
+			margin: 8px 0;
+			padding: 8px 12px;
+			border-left: 3px solid var(--primary-color);
+			background: rgba(9, 105, 218, 0.08);
+			border-radius: 0 4px 4px 0;
+			font-size: 0.9rem;
+		}
+
+		.ai-selection-bar {
+			padding: 8px 12px;
+			background: rgba(9, 105, 218, 0.1);
+			border: 1px solid var(--border-color);
+			border-radius: 6px;
+			display: none;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 0.85rem;
+			color: var(--text-color);
+			flex-shrink: 0;
+		}
+
+		#ai-selection-text {
+			flex: 1;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			margin-right: 10px;
+			font-family: monospace;
+		}
+
+		.ai-btn {
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+			border-radius: 4px;
+			padding: 4px 10px;
+			font-size: 0.8rem;
+			color: var(--text-color);
+			cursor: pointer;
+			margin-left: 6px;
+			transition: all 0.2s;
+		}
+
+		.ai-btn:hover {
+			background: var(--primary-color);
+			border-color: var(--primary-color);
+			color: #fff;
+		}
+
+		.ai-input-area {
+			display: flex;
+			gap: 8px;
+			padding: 8px;
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+			border-radius: var(--border-radius-sm);
+			flex-shrink: 0;
+		}
+
+		#ai-input {
+			flex: 1;
+			padding: 10px 12px;
+			border: none;
+			border-radius: 6px;
+			background: var(--bg-color);
+			color: var(--text-color);
+			outline: none;
+			font-size: 0.95rem;
+			font-family: inherit;
+			resize: none;
+			max-height: 120px;
+			line-height: 1.5;
+		}
+
+		#ai-input:focus {
+			box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.3);
+		}
+
+		.ai-send-btn {
+			width: 40px;
+			height: 40px;
+			border: none;
+			border-radius: 8px;
+			background: var(--primary-color);
+			color: #fff;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.2s;
+			flex-shrink: 0;
+		}
+
+		.ai-send-btn:hover {
+			background: #0859b5;
+			transform: translateY(-1px);
+		}
+
+		.ai-send-btn:disabled {
+			opacity: 0.6;
+			cursor: not-allowed;
+			transform: none;
+		}
+
+		.ai-footer {
+			display: flex;
+			justify-content: space-between;
+			padding: 4px 8px;
+			font-size: 0.75rem;
+			color: var(--text-light);
+			flex-shrink: 0;
+		}
+
+		.ai-tip {
+			opacity: 0.8;
+		}
+
+		.thinking {
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+			color: var(--text-light);
+			font-size: 0.9rem;
+		}
+
+		.thinking span {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background: var(--text-light);
+			animation: bounce 1.4s infinite ease-in-out;
+		}
+
+		.thinking span:nth-child(2) {
+			animation-delay: 0.2s;
+		}
+
+		.thinking span:nth-child(3) {
+			animation-delay: 0.4s;
+		}
+
+		@keyframes bounce {
+
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+
+			50% {
+				transform: translateY(-4px);
+			}
+		}
+
+		@media (prefers-color-scheme: dark) {
+			.ai-avatar {
+				background: linear-gradient(135deg, #0c4a6e, #075985);
+				color: #7dd3fc;
+			}
+
+			.ai-bubble.bot {
+				background: #1f2937;
+				border-color: #374151;
+			}
+
+			.ai-bubble.bot .markdown-body blockquote {
+				background: rgba(59, 130, 246, 0.15);
+			}
+		}
+
+		@media (max-width: 768px) {
+			#ai-page {
+				padding: 8px;
+				height: calc(100vh - 50px);
+			}
+
+			.ai-bubble {
+				max-width: 92%;
+			}
+
+			.ai-header {
+				padding: 10px 12px;
+			}
+
+			.ai-avatar {
+				width: 40px;
+				height: 40px;
+			}
+
+			.ai-avatar svg {
+				width: 24px;
+				height: 24px;
+			}
+		}
+
+		blockquote p {
+			margin: 0;
+		}
+
+		#download-page .card {
+			background: var(--card-bg);
+			border: 1px solid var(--border-color);
+			border-radius: var(--border-radius-sm);
+			padding: 20px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		}
+
+		#download-page .branch-toggle label {
+			transition: all 0.2s;
+		}
+
+		#download-page .branch-toggle input:checked+label {
+			background: var(--card-bg);
+			color: var(--primary-color);
+			font-weight: 600;
+		}
+
+		#download-page .progress {
+			height: 6px;
+			background: var(--border-color);
+			border-radius: 3px;
+			overflow: hidden;
+			margin-top: 12px;
+			display: none;
+		}
+
+		#download-page .progress-bar {
+			height: 100%;
+			background: var(--primary-color);
+			border-radius: 3px;
+			transition: width 0.3s ease;
+			width: 0%;
+		}
+
+		#download-page table tr:hover {
+			background: rgba(9, 105, 218, 0.04);
+		}
+
+		#download-page table tr.fastest {
+			background: linear-gradient(135deg, rgba(6, 214, 160, 0.12), rgba(9, 105, 218, 0.08));
+			border-left: 4px solid var(--success-color, #06d6a0);
+		}
+
+		#download-page .status {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 4px 12px;
+			border-radius: 20px;
+			font-size: 0.85rem;
+			font-weight: 500;
+		}
+
+		#download-page .status.success {
+			background: rgba(6, 214, 160, 0.15);
+			color: #059669;
+		}
+
+		#download-page .status.pending {
+			background: rgba(108, 117, 125, 0.12);
+			color: var(--text-light);
+		}
+
+		#download-page .status.error {
+			background: rgba(239, 71, 111, 0.12);
+			color: #ef476f;
+		}
+
+		#download-page .status.cors {
+			background: rgba(255, 209, 102, 0.15);
+			color: #d97706;
+		}
+
+		#download-page .time {
+			font-family: 'SF Mono', 'Fira Code', monospace;
+			font-weight: 600;
+			color: var(--primary-color);
+		}
+
+		#download-page .version-badge {
+			background: rgba(9, 105, 218, 0.1);
+			color: var(--primary-color);
+			padding: 3px 10px;
+			border-radius: 6px;
+			font-size: 0.85rem;
+			font-weight: 500;
+		}
+
+		#download-page .action-btn:disabled {
+			opacity: 0.6;
+			cursor: not-allowed;
+		}
+
+		#download-page .action-btn:disabled:hover {
+			background: var(--card-bg);
+			border-color: var(--border-color);
+			color: var(--text-color);
+			transform: none;
+		}
+
+		@media (max-width: 768px) {
+			#download-page .card {
+				padding: 16px;
+			}
+
+			#download-page table th,
+			#download-page table td {
+				padding: 12px 10px;
+				font-size: 0.9rem;
+			}
+
+			#download-page .branch-toggle {
+				width: 100%;
+				justify-content: center;
+			}
+
+			#download-page .action-btn {
+				width: 100%;
+				justify-content: center;
+			}
+		}
+
+		@media (prefers-color-scheme: dark) {
+			#download-page .card {
+				background: #161b22;
+				border-color: #30363d;
+			}
+
+			#download-page .status.success {
+				background: rgba(6, 214, 160, 0.25);
+				color: #4ac26b;
+			}
+
+			#download-page .status.cors {
+				background: rgba(255, 209, 102, 0.25);
+				color: #e3b341;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div id="global-loading" class="global-loading">
+		<div class="loading-spinner">
+			<i class="fa-solid fa-spinner fa-spin"></i>
+			<span>加载中...</span>
+		</div>
+	</div>
+	<div id="app">
+		<aside class="sidebar" id="sidebar">
+			<nav class="nav-menu">
+				<a class="nav-logo-item" data-page="none">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" class="nav-icon" height="24" viewBox="0 0 24 24">
+						<path fill="currentColor"
+							d="M12.424 0c-.435-.005-.964.138-1.569.65c-.967.817-2.554 3.235-3.56 4.38s-2.002 1.65-2.48 2.493c-.477.844-.824 1.598-.385 2.568s2.308 2.592 3.018 3.247s.724.566 1.24.68c.517.113 1.38.188 1.857 0c.478-.19.993-.63 1.006-1.133s-.515-1.409-.928-1.887c-.413-.479-1.213-.769-1.549-.983s-.373-.076-.463-.303s-.413-.59-.078-1.056c.336-.466 1.38-1.033 2.09-1.738s1.625-1.61 2.167-2.492s1.06-2.064 1.085-2.794C13.901.902 13.603.285 13.1.12a2.2 2.2 0 0 0-.676-.12m-.397 6.936c-.243.008-.443.037-.566.097c-.492.24-.48.997-.151 1.515s1.618 1.223 2.124 1.59c.505.366.883.292.908.607c.026.316.102.315-.757 1.287c-.86.973-3.222 3.371-4.397 4.546c-1.175 1.174-1.77 1.503-2.654 2.5S4.259 21.78 3.88 22.563s-.15.997.38 1.212c.531.214 2.11.34 2.804.075c.695-.265.822-1.034 1.365-1.666c.543-.63.721-.859 1.896-2.122c.472-.507 1.242-1.32 1.998-2.118c.048.151.126.324.243.525c.423.727 1.922 2.219 2.537 3.009s.77 1.33 1.154 1.73c.384.402.55.564 1.152.677c.602.112 1.998.188 2.459 0c.461-.189.552-.576.308-1.127c-.243-.552-1.346-1.555-1.768-2.182c-.423-.627-1.243-2.095-1.845-2.71s-1.025-.776-1.768-.977c-.43-.115-.982-.11-1.444-.034c.769-.811 1.564-1.647 2.129-2.246c1.415-1.503 2.88-2.614 3.335-3.56c.455-.948-.214-1.492-.606-2.123c-.391-.631-1.124-1.363-1.743-1.666c-.62-.303-1.151-.1-1.972-.151c-.616-.038-1.737-.197-2.467-.173" />
+					</svg>
+					<span class="nav-text">Amazing Luogu</span>
+				</a>
+				<a href="/" class="nav-item" data-page="home">
+					<i class="fa-solid fa-house-chimney-user nav-icon"></i>
+					<span class="nav-text">首页</span>
+				</a>
+				<a href="/services/list" class="nav-item" data-page="services"
+					onclick="event.preventDefault();navigateToServicesList()">
+					<i class="fa-solid fa-layer-group nav-icon"></i>
+					<span class="nav-text">服务</span>
+				</a>
+				<a href="/download" class="nav-item" data-page="download"
+					onclick="event.preventDefault();history.pushState({}, '', '/download'); parseRoute(); showPage('download'); updateBreadcrumb([{text:'首页',href:'/'},{text:'下载',href:'/download'}]);">
+					<i class="fa-solid fa-download nav-icon"></i>
+					<span class="nav-text">下载</span>
+				</a>
+				<a href="/ai" class="nav-item" data-page="ai"
+					onclick="event.preventDefault(); history.pushState({},'', '/ai'); parseRoute();">
+					<i class="fa-brands fa-openai nav-icon"></i>
+					<span class="nav-text">AI</span>
+				</a>
+			</nav>
+		</aside>
+		<div class="sidebar-overlay" id="sidebarOverlay"></div>
+		<div class="main-container">
+			<header class="topbar">
+				<div class="topbar-left">
+					<button class="menu-toggle" id="menuToggle" aria-label="切换菜单">
+						<i class="fas fa-bars"></i>
+					</button>
+					<nav class="breadcrumb" id="breadcrumb"></nav>
+				</div>
+				<div class="logo">
+					<img src="/public/llooggoo.png" referrerpolicy="no-referrer"
+						crossorigin="anonymous" alt="Logo" class="logo-img">
+				</div>
+			</header>
+			<main class="content" id="not-found-page" style="display:none">
+				<div style="text-align:center;padding:80px 20px">
+					<i class="fa-solid fa-ghost" style="font-size:4rem;color:var(--text-light);margin-bottom:24px"></i>
+					<h1 style="font-size:2rem;color:var(--text-color);margin-bottom:16px">404 - 页面未找到</h1>
+					<p style="color:var(--text-light);margin-bottom:32px">抱歉，您访问的页面不存在或已被移除。</p>
+					<a href="/" class="action-btn" style="text-decoration:none">
+						<i class="fa-solid fa-house"></i> 返回首页
+					</a>
+				</div>
+			</main>
+			<main class="content" id="home-page">
+				<canvas id="aurora" width="759" height="790"></canvas>
+				<div class="hero-content">
+					<h1>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 31.57px">
+							<path fill="currentColor"
+								d="M12.424 0c-.435-.005-.964.138-1.569.65c-.967.817-2.554 3.235-3.56 4.38s-2.002 1.65-2.48 2.493c-.477.844-.824 1.598-.385 2.568s2.308 2.592 3.018 3.247s.724.566 1.24.68c.517.113 1.38.188 1.857 0c.478-.19.993-.63 1.006-1.133s-.515-1.409-.928-1.887c-.413-.479-1.213-.769-1.549-.983s-.373-.076-.463-.303s-.413-.59-.078-1.056c.336-.466 1.38-1.033 2.09-1.738s1.625-1.61 2.167-2.492s1.06-2.064 1.085-2.794C13.901.902 13.603.285 13.1.12a2.2 2.2 0 0 0-.676-.12m-.397 6.936c-.243.008-.443.037-.566.097c-.492.24-.48.997-.151 1.515s1.618 1.223 2.124 1.59c.505.366.883.292.908.607c.026.316.102.315-.757 1.287c-.86.973-3.222 3.371-4.397 4.546c-1.175 1.174-1.77 1.503-2.654 2.5S4.259 21.78 3.88 22.563s-.15.997.38 1.212c.531.214 2.11.34 2.804.075c.695-.265.822-1.034 1.365-1.666c.543-.63.721-.859 1.896-2.122c.472-.507 1.242-1.32 1.998-2.118c.048.151.126.324.243.525c.423.727 1.922 2.219 2.537 3.009s.77 1.33 1.154 1.73c.384.402.55.564 1.152.677c.602.112 1.998.188 2.459 0c.461-.189.552-.576.308-1.127c-.243-.552-1.346-1.555-1.768-2.182c-.423-.627-1.243-2.095-1.845-2.71s-1.025-.776-1.768-.977c-.43-.115-.982-.11-1.444-.034c.769-.811 1.564-1.647 2.129-2.246c1.415-1.503 2.88-2.614 3.335-3.56c.455-.948-.214-1.492-.606-2.123c-.391-.631-1.124-1.363-1.743-1.666c-.62-.303-1.151-.1-1.972-.151c-.616-.038-1.737-.197-2.467-.173" />
+						</svg> We are Amazing Luogu.
+					</h1>
+					<p>新一代洛谷插件，美观、稳定、快速。</p>
+					<div class="hero-buttons">
+						<a href="/download" class="hero-btn primary"
+							onclick="event.preventDefault();history.pushState({}, '', '/download'); parseRoute(); showPage('download'); updateBreadcrumb([{text:'首页',href:'/'},{text:'下载',href:'/download'}]);">
+							<i class="fa-solid fa-download"></i> 前往下载
+						</a>
+						<a href="/services/list" class="hero-btn secondary"
+							onclick="event.preventDefault(); navigateToServicesList()">
+							<i class="fa-solid fa-layer-group"></i> 服务列表
+						</a>
+					</div>
+				</div>
+			</main>
+			<main class="content" id="download-page" style="display: none;">
+				<div class="page-header">
+					<h1><i class="fa-solid fa-download"></i> 下载中心</h1>
+					<p class="page-subtitle">智能优选 CDN，一键安装 Amazing Luogu</p>
+				</div>
+				<div class="card" style="margin-bottom: 20px;">
+
+					<div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 16px;">
+						
+						<button id="startBtn" class="action-btn"
+							style="background: var(--primary-color); border-color: var(--primary-color); color: #fff;"
+							onclick="startTest()">
+							<i class="fa-solid fa-tachometer-alt"></i> 开始测速
+						</button>
+						<button id="installBtn" class="action-btn" onclick="installFastest()" disabled
+							style="opacity: 0.6; cursor: not-allowed;">
+							<i class="fa-solid fa-download"></i> 安装最快源
+						</button>
+					</div>
+					<div class="progress" id="globalProgress"
+						style="height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden; display: none;">
+						<div class="progress-bar" id="progressBar"
+							style="height: 100%; background: var(--primary-color); border-radius: 3px; transition: width 0.3s ease; width: 0%;">
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<div style="overflow-x: auto;">
+						<table style="width: 100%; border-collapse: collapse;">
+							<thead>
+								<tr style="border-bottom: 2px solid var(--border-color);">
+									<th
+										style="padding: 14px 16px; text-align: left; font-weight: 600; color: var(--text-light); font-size: 0.9rem;">
+										CDN 源</th>
+									<th
+										style="padding: 14px 16px; text-align: left; font-weight: 600; color: var(--text-light); font-size: 0.9rem;">
+										版本</th>
+									<th
+										style="padding: 14px 16px; text-align: left; font-weight: 600; color: var(--text-light); font-size: 0.9rem;">
+										响应时间</th>
+									<th
+										style="padding: 14px 16px; text-align: left; font-weight: 600; color: var(--text-light); font-size: 0.9rem;">
+										状态</th>
+									<th
+										style="padding: 14px 16px; text-align: left; font-weight: 600; color: var(--text-light); font-size: 0.9rem;">
+										操作</th>
+								</tr>
+							</thead>
+							<tbody id="resultsBody">
+								<tr>
+									<td colspan="5"
+										style="text-align: center; color: var(--text-light); padding: 30px;">
+										<i class="fa-solid fa-info-circle"></i> 点击上方按钮开始检测
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="card" style="margin-top: 20px;">
+					<h3 style="margin: 0 0 12px 0; color: var(--text-color);"><i class="fa-solid fa-book"></i> 安装说明</h3>
+					<div class="markdown-body" style="color: var(--text-light); line-height: 1.7;">
+						<ol style="padding-left: 20px; margin: 0;">
+							<li>确保已安装 <strong>Tampermonkey</strong> 或 <strong>Violentmonkey</strong> 扩展</li>
+							<li>点击"开始测速"，系统将自动检测各 CDN 源可用性</li>
+							<li>点击"安装最快源"或手动选择可用源进行安装</li>
+							<li>在油猴面板中启用脚本，刷新洛谷页面即可生效</li>
+						</ol>
+						<p style="margin: 12px 0 0 0; font-size: 0.9rem;">
+							<i class="fa-solid fa-triangle-exclamation" style="color: var(--warning);"></i>
+							如遇安装失败，请检查浏览器是否拦截弹窗，或复制链接到油猴"创建新脚本"手动安装。
+						</p>
+					</div>
+				</div>
+			</main>
+			<main class="content" id="services-list-page" style="display:none">
+				<div class="page-header">
+					<h1>
+						<i class="fa-solid fa-layer-group"></i> 服务列表
+					</h1>
+					<p class="page-subtitle">浏览所有可用服务，更多服务上线中……</p>
+				</div>
+				<div class="services-filter">
+					<input type="text" id="serviceSearch" placeholder="搜索服务..." class="search-input">
+					<select id="categoryFilter" class="filter-select">
+						<option value="">全部分类</option>
+					</select>
+				</div>
+				<div id="services-grid" class="services-grid"></div>
+				<div id="services-loading" class="loading" style="display:none">
+					<div class="loading">
+						<i class="fa-solid fa-spinner"></i>
+						<span>加载中...</span>
+					</div>
+				</div>
+				<div id="services-empty" class="empty-state" style="display:none">
+					<i class="fa-solid fa-inbox"></i>
+					<p>暂无服务</p>
+				</div>
+			</main>
+			<main class="content" id="services-detail-page" style="display:none">
+				<div class="article-header">
+					<button class="action-btn" onclick="history.back()">
+						<i class="fa-solid fa-arrow-left"></i> 返回
+					</button>
+					<button class="action-btn" id="copyServiceLink">
+						<i class="fa-solid fa-link"></i> 复制链接
+					</button>
+					<span class="save-time" id="serviceUpdateTime"></span>
+				</div>
+				<div id="service-meta" class="service-meta"></div>
+				<div id="service-content" class="markdown-body"></div>
+			</main>
+			<main class="content" id="ai-page" style="display: none;">
+				<div class="ai-header">
+					<div class="ai-avatar">
+						<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor"
+							stroke-width="1.5">
+							<path
+								d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+						</svg>
+					</div>
+					<div class="ai-info">
+						<h2>雪域智狐 AI</h2>
+						<p class="ai-status"><span class="status-dot"></span> 在线 | 仅测试，不保证稳定性，随时关闭，功能待加强。</p>
+					</div>
+					<button class="action-btn" id="ai-clear-btn" title="清空对话">
+						<i class="fa-solid fa-rotate-right"></i>
+					</button>
+				</div>
+				<div id="ai-messages" class="ai-messages"></div>
+				<div id="ai-selection-bar" class="ai-selection-bar">
+					<span id="ai-selection-text"></span>
+					<div>
+						<button class="ai-btn" id="ai-btn-summarize">总结</button>
+						<button class="ai-btn" id="ai-btn-explain">解释</button>
+					</div>
+				</div>
+				<div class="ai-input-area">
+					<textarea id="ai-input" placeholder="输入你的问题，支持 Shift+Enter 换行..." rows="1"></textarea>
+					<button id="ai-send-btn" class="ai-send-btn">
+						<i class="fa-solid fa-paper-plane"></i>
+					</button>
+				</div>
+				<div class="ai-footer">
+					<span>深度思考 · 简洁回答</span>
+					<span class="ai-tip" id="ai-tip">按 Enter 发送，Shift+Enter 换行</span>
+				</div>
+			</main>
+		</div>
+	</div>
+	<script src="/public/fw.js"></script>
+	<script src="/public/md.min.js"></script>
+	<script src="/public/k.min.js"></script>
+	<script src="/public/ar.min.js"></script>
+	<script src="/public/hl.min.js"></script>
+	<script>
+		// ========== 下载页 CDN 测速逻辑 ==========
+
+		// CDN 源配置
+		const CDN_SOURCES = [
+			{ name: '官方备用', base: 'https://amlg.top/Amazing-Luogu' },
+			{ name: 'jsDelivr (主)', base: 'https://cdn.jsdelivr.net/gh/Snow-Domain-Smart-Fox/Amazing-Luogu@main' },
+			{ name: 'jsDelivr (GCore)', base: 'https://gcore.jsdelivr.net/gh/Snow-Domain-Smart-Fox/Amazing-Luogu@main' },
+			{ name: 'jsDelivr (Fastly)', base: 'https://fastly.jsdelivr.net/gh/Snow-Domain-Smart-Fox/Amazing-Luogu@main' },
+			{ name: 'bgithub.xyz', base: 'https://bgithub.xyz/Snow-Domain-Smart-Fox/Amazing-Luogu/raw/refs/heads/main' },
+			{ name: 'GitHub Raw', base: 'https://raw.githubusercontent.com/Snow-Domain-Smart-Fox/Amazing-Luogu/refs/heads/main' },
+			{ name: 'jsdmirror.cn', base: 'https://cdn.jsdmirror.cn/gh/Snow-Domain-Smart-Fox/Amazing-Luogu@main' },
+			{ name: 'jsdmirror.com', base: 'https://cdn.jsdmirror.com/gh/Snow-Domain-Smart-Fox/Amazing-Luogu@main' },
+			{ name: 'staticfile.net', base: 'https://cdn.staticfile.net/gh/Snow-Domain-Smart-Fox/Amazing-Luogu@main' }
+		];
+
+		let testResults = [];
+		let latestVersion = null;
+		let selectedBranch = 'release';
+
+		// 构建完整 URL
+		function buildUrl(base, path) {
+			return base.replace(/\/+$/, '') + path;
+		}
+
+		// 解析 versions.json 中的版本号
+		function parseVersion(data) {
+			try {
+				return data?.["Amazing Luogu"]?.release || null;
+			} catch {
+				return null;
+			}
+		}
+
+		// 简单请求测速（避免触发 CORS 预检）
+		async function simpleFetch(url, timeout = 6000) {
+			return new Promise((resolve) => {
+				const start = performance.now();
+				const controller = new AbortController();
+				const timer = setTimeout(() => controller.abort(), timeout);
+
+				fetch(url + '?t=' + Date.now(), {
+					method: 'GET',
+					signal: controller.signal,
+					mode: 'cors',
+					cache: 'no-cache'
+				})
+					.then(async (res) => {
+						clearTimeout(timer);
+						const duration = Math.round(performance.now() - start);
+
+						if (url.includes('versions.json')) {
+							try {
+								const data = await res.json();
+								resolve({ ok: res.ok, duration, data, corsOk: true });
+							} catch {
+								resolve({ ok: false, duration, error: 'parse', corsOk: true });
+							}
+						} else {
+							resolve({ ok: res.ok, duration, corsOk: true });
+						}
+					})
+					.catch((err) => {
+						clearTimeout(timer);
+						const duration = Math.round(performance.now() - start);
+						const isCORS = err.message.includes('CORS') || err.name === 'TypeError';
+						resolve({
+							ok: false,
+							duration,
+							error: err.message,
+							corsOk: !isCORS,
+							isCORS: isCORS
+						});
+					});
+			});
+		}
+
+		// 更新进度条
+		function updateProgress(percent) {
+			const bar = document.getElementById('progressBar');
+			if (bar) bar.style.width = `${Math.min(100, percent)}%`;
+		}
+
+		// 渲染结果表格
+		function renderResults() {
+			const tbody = document.getElementById('resultsBody');
+			if (!tbody) return;
+
+			if (testResults.length === 0) {
+				tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-light);padding:30px"><i class="fa-solid fa-info-circle"></i> 点击上方按钮开始检测</td></tr>`;
+				return;
+			}
+
+			// 找出最快可用源（版本匹配 + 脚本可用）
+			const fastest = testResults
+				.filter(r => (r.scriptOk || r.isCORS) && r.version === latestVersion)
+				.sort((a, b) => (a.scriptTime || a.duration || 9999) - (b.scriptTime || b.duration || 9999))[0];
+
+			tbody.innerHTML = testResults.map(r => {
+				const isFastest = fastest && r.name === fastest.name;
+
+				// 状态判定
+				let statusClass, statusIcon, statusText;
+				if (r.scriptOk && r.corsOk) {
+					statusClass = 'success'; statusIcon = 'fa-circle-check'; statusText = '就绪';
+				} else if (r.versionOk && !r.scriptOk && r.corsOk) {
+					statusClass = 'pending'; statusIcon = 'fa-hourglass-half'; statusText = '版本匹配';
+				} else if (r.isCORS) {
+					statusClass = 'cors'; statusIcon = 'fa-triangle-exclamation'; statusText = '需验证';
+				} else {
+					statusClass = 'error'; statusIcon = 'fa-circle-xmark'; statusText = '失败';
+				}
+
+				// 时间显示优先级：脚本时间 > 版本时间 > 总时间
+				const timeDisplay = r.scriptOk ? `${r.scriptTime} ms` :
+					r.versionOk ? `${r.versionTime} ms` :
+						r.duration ? `${r.duration} ms` : '—';
+
+				// 版本 badge
+				const versionBadge = r.version ? `<span class="version-badge">${r.version}</span>` : '<span style="color:var(--text-light)">—</span>';
+
+				// 操作按钮
+				const actionBtn = (r.scriptOk || r.isCORS) ?
+					`<button class="action-btn" style="padding:6px 14px;font-size:0.85rem;" onclick="installScript('${r.scriptUrl}')">
+        <i class="fa-solid fa-play"></i> ${r.isCORS ? '尝试安装' : '安装'}
+      </button>` :
+					`<button class="action-btn" disabled style="padding:6px 14px;font-size:0.85rem;opacity:0.6;">
+        <i class="fa-solid fa-lock"></i> 不可用
+      </button>`;
+
+				return `
+      <tr class="${isFastest ? 'fastest' : ''}">
+        <td><strong>${r.name}</strong></td>
+        <td>${versionBadge}</td>
+        <td class="time">${timeDisplay}</td>
+        <td><span class="status ${statusClass}"><i class="fa-solid ${statusIcon}"></i> ${statusText}</span></td>
+        <td>${actionBtn}</td>
+      </tr>
+    `;
+			}).join('');
+		}
+
+		// 测试单个源
+		async function testSource(source, index, total) {
+			const versionUrl = buildUrl(source.base, '/versions.json').trim();
+			const scriptUrl = buildUrl(source.base, '/index.user.js').trim();
+
+			// 1. 测试 versions.json
+			const versionRes = await simpleFetch(versionUrl, 5000);
+			updateProgress(((index) / total) * 60);
+
+			let version = null, versionTime = null, versionOk = false;
+			if (versionRes.ok && versionRes.data) {
+				version = parseVersion(versionRes.data);
+				versionTime = versionRes.duration;
+				versionOk = !!version;
+			}
+
+			// 版本获取失败
+			if (!versionOk) {
+				testResults.push({
+					name: source.name,
+					version: null,
+					versionTime: null,
+					versionOk: false,
+					scriptUrl,
+					scriptOk: false,
+					scriptTime: null,
+					duration: versionRes.duration,
+					corsOk: versionRes.corsOk,
+					isCORS: versionRes.isCORS
+				});
+				renderResults();
+				return;
+			}
+
+			// 记录首个成功获取的版本作为基准
+			if (!latestVersion) latestVersion = version;
+
+			// 版本不匹配
+			if (version !== latestVersion) {
+				testResults.push({
+					name: source.name,
+					version,
+					versionTime,
+					versionOk: true,
+					scriptUrl,
+					scriptOk: false,
+					scriptTime: null,
+					duration: versionRes.duration,
+					corsOk: true
+				});
+				renderResults();
+				return;
+			}
+
+			// 2. 测试 index.user.js
+			const scriptRes = await simpleFetch(scriptUrl, 8000);
+			updateProgress(((index + 0.8) / total) * 100);
+
+			const scriptOk = scriptRes.corsOk && scriptRes.duration < 10000;
+
+			testResults.push({
+				name: source.name,
+				version,
+				versionTime,
+				versionOk: true,
+				scriptUrl,
+				scriptOk,
+				scriptTime: scriptOk ? scriptRes.duration : null,
+				duration: scriptRes.duration,
+				corsOk: scriptRes.corsOk,
+				isCORS: scriptRes.isCORS
+			});
+			renderResults();
+		}
+
+		// 开始测速
+		async function startTest() {
+			selectedBranch = 'release';
+
+			const btn = document.getElementById('startBtn');
+			const installBtn = document.getElementById('installBtn');
+			const progress = document.getElementById('globalProgress');
+
+			if (!btn || !installBtn || !progress) return;
+
+			// UI 状态
+			btn.disabled = true;
+			btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 检测中...';
+			installBtn.disabled = true;
+			progress.style.display = 'block';
+
+			// 重置数据
+			testResults = [];
+			latestVersion = null;
+			renderResults();
+			updateProgress(0);
+
+			// 逐个测试源
+			const total = CDN_SOURCES.length;
+			for (let i = 0; i < total; i++) {
+				await testSource(CDN_SOURCES[i], i, total);
+			}
+
+			// 完成
+			updateProgress(100);
+			btn.disabled = false;
+			btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> 重新测速';
+
+			const hasAvailable = testResults.some(r => r.scriptOk || r.isCORS);
+			installBtn.disabled = !hasAvailable;
+			if (hasAvailable) installBtn.style.opacity = '1';
+
+			setTimeout(() => { progress.style.display = 'none'; }, 500);
+		}
+
+		// 获取最快可用源
+		function getFastestSource() {
+			return testResults
+				.filter(r => (r.scriptOk || r.isCORS) && r.version === latestVersion)
+				.sort((a, b) => (a.scriptTime || a.duration || 9999) - (b.scriptTime || b.duration || 9999))[0];
+		}
+
+		// 安装脚本
+		function installScript(url) {
+			if (confirm(`确认安装此源？\n\n${url}\n\n提示：浏览器可能会拦截弹窗，请允许或使用油猴手动安装`)) {
+				window.open(url.trim(), '_blank', 'noopener,noreferrer');
+			}
+		}
+
+		// 安装最快源
+		function installFastest() {
+			const fastest = getFastestSource();
+			if (fastest) {
+				installScript(fastest.scriptUrl);
+			}
+		}
+
+		// 初始化下载页
+		function initDownloadPage() {
+			renderResults();
+		}
+	</script>
+	<script>
+		// ========== AI 聊天功能模块（流式渲染版）==========
+
+		// System Prompt - 雪域智狐 AI 助手
+		const AI_SYSTEM_PROMPT = `你是一只专业的、智慧的北极狐，是 Snow Domain Smart Fox（雪域智狐）的 AI 助手。
+
+【角色设定】
+- 名字：雪域智狐（Arctic Wisdom Fox）
+- 性格：专业冷静、智慧深邃、简洁高效、温暖有度
+- 风格：避免机械感，像一位经验丰富的导师，言语精炼但有温度
+
+【核心能力】
+1. 深度思考：先分析问题本质，再给出精准回答
+2. 简洁表达：直击要点，不啰嗦，每句话都有价值
+3. 需求洞察：准确识别用户真实需求，主动澄清模糊问题
+4. 情绪感知：
+   - 用户低落时 → 给予真诚鼓励，提供可行建议
+   - 用户好奇时 → 激发探索欲，引导深入思考
+
+【安全准则】🚫 严格禁止
+- 不提供任何爬取站点、盗用 API、破解验证、绕过限制的帮助
+- 不参与任何违规、违法、侵犯隐私的请求
+- 不生成恶意代码、钓鱼内容、虚假信息
+
+【回答格式】
+1. 主体内容：简洁清晰，必要时分点/代码块
+2. 结尾固定：添加一句**与当前话题相关**的励志名言（中文优先，格式：> "名言内容"）
+
+【示例】
+用户：这道 DP 题我卡住了...
+助手：先看状态定义是否最优子结构。试试 f[i] 表示前 i 项的最大值，转移时枚举最后一段长度。边界 f[0]=0。
+> "所谓难题，不过是尚未拆解的简单问题。"`;
+
+		// API 配置
+		const AI_API_CONFIG = {
+			key: '7a731303e72744e287a21daa021eaa3f.fMYf7XN1zGJLrQqs',
+			url: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
+			model: 'glm-4.7-flash'
+		};
+
+		// 状态管理
+		let aiAbortController = null;
+		let aiRetryTimeout = null;
+		let aiSelectedText = '';
+		let aiRenderTimer = null;
+
+		// ========== 工具函数 ==========
+
+		/**
+		 * 添加消息到聊天区域
+		 */
+		function aiAddMessage(sender, content, isStreaming = false) {
+			const container = document.getElementById('ai-messages');
+			const bubble = document.createElement('div');
+			bubble.className = `ai-bubble ${sender} markdown-body`;
+			bubble.dataset.streaming = isStreaming ? 'true' : 'false';
+
+			if (isStreaming) {
+				bubble._rawContent = '';
+				bubble.innerHTML = '<div class="thinking"><span></span><span></span><span></span></div>';
+			} else {
+				bubble.innerHTML = renderMarkdown(content);
+			}
+
+			container.appendChild(bubble);
+			container.scrollTop = container.scrollHeight;
+			return bubble;
+		}
+
+		/**
+		 * 流式渲染：每收到 chunk 就触发渲染（带防抖）
+		 */
+		function aiStreamRender(bubble, rawText) {
+			// 清除待处理的渲染任务
+			if (aiRenderTimer) clearTimeout(aiRenderTimer);
+
+			// 防抖：100ms 内只渲染一次，平衡流畅度与性能
+			aiRenderTimer = setTimeout(() => {
+				const rendered = renderMarkdown(rawText);
+
+				// 组合 HTML：主体 + 名言（如果有）
+				bubble.innerHTML = rendered;
+
+				// 保持滚动到底部
+				const container = document.getElementById('ai-messages');
+				container.scrollTop = container.scrollHeight;
+			}, 1);
+		}
+
+		/**
+		 * 最终渲染：流式结束后调用，确保格式完整
+		 */
+		function aiFinalRender(bubble, rawText) {
+			// 清除待处理的渲染任务
+			if (aiRenderTimer) {
+				clearTimeout(aiRenderTimer);
+				aiRenderTimer = null;
+			}
+
+			// 渲染主体 + 格式化名言
+			const rendered = renderMarkdown(rawText);
+
+			bubble.innerHTML = rendered;
+			bubble.dataset.streaming = 'false';
+
+			// 刷新代码高亮
+			if (typeof updateHighlightTheme === 'function') {
+				updateHighlightTheme();
+			}
+		}
+
+		/**
+		 * 显示选中文本操作栏
+		 */
+		function aiShowSelectionBar(text) {
+			if (!text || !text.trim()) return;
+			aiSelectedText = text.trim();
+			const bar = document.getElementById('ai-selection-bar');
+			const txt = document.getElementById('ai-selection-text');
+			txt.textContent = `"${text.length > 40 ? text.slice(0, 40) + '...' : text}"`;
+			bar.style.display = 'flex';
+		}
+
+		/**
+		 * 隐藏选中文本操作栏
+		 */
+		function aiHideSelectionBar() {
+			document.getElementById('ai-selection-bar').style.display = 'none';
+			aiSelectedText = '';
+		}
+
+		/**
+		 * 流式请求 AI 接口（带 429 重试）
+		 */
+		async function aiStreamRequest(prompt, onChunk, onError) {
+			aiAbortController?.abort();
+			aiAbortController = new AbortController();
+
+			const attempt = async () => {
+				try {
+					const response = await fetch(AI_API_CONFIG.url, {
+						method: 'POST',
+						headers: {
+							'Authorization': `Bearer ${AI_API_CONFIG.key}`,
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							model: AI_API_CONFIG.model,
+							messages: [
+								{ role: 'system', content: AI_SYSTEM_PROMPT },
+								{ role: 'user', content: prompt }
+							],
+							thinking: { type: 'disabled' },
+							stream: true
+						}),
+						signal: aiAbortController.signal
+					});
+
+					if (response.status === 429) throw new Error('429');
+					if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+					const reader = response.body.getReader();
+					const decoder = new TextDecoder();
+					let buffer = '';
+
+					while (true) {
+						const { done, value } = await reader.read();
+						if (done) break;
+
+						buffer += decoder.decode(value, { stream: true });
+						const lines = buffer.split('\n');
+						buffer = lines.pop() || '';
+
+						for (const line of lines) {
+							if (line.startsWith('data:')) {
+								const data = line.slice(5).trim();
+								if (data === '[DONE]') return;
+								try {
+									const json = JSON.parse(data);
+									const content = json.choices?.[0]?.delta?.content;
+									if (content) onChunk(content);
+								} catch (e) { }
+							}
+						}
+					}
+				} catch (error) {
+					if (error.name === 'AbortError') return;
+					if (error.message === '429') {
+						onError('❄️ 服务器繁忙，雪狐正在加速处理，请稍候...');
+						aiRetryTimeout = setTimeout(() => attempt(), 3000);
+					} else {
+						onError(`❄️ 请求异常: ${error.message}`);
+					}
+				}
+			};
+
+			await attempt();
+		}
+
+		/**
+		 * 发送消息主函数（流式渲染核心）
+		 */
+		function aiSendMessage(userMessage) {
+			if (!userMessage.trim()) return;
+
+			// 清理重试定时器
+			if (aiRetryTimeout) {
+				clearTimeout(aiRetryTimeout);
+				aiRetryTimeout = null;
+			}
+
+			const input = document.getElementById('ai-input');
+			const sendBtn = document.getElementById('ai-send-btn');
+
+			// UI 状态
+			input.disabled = true;
+			sendBtn.disabled = true;
+			aiHideSelectionBar();
+
+			// 添加用户消息
+			aiAddMessage('user', userMessage);
+
+			// 添加 AI 占位消息（流式模式）
+			const botBubble = aiAddMessage('bot', '', true);
+
+			// 累积原始内容
+			let rawContent = '';
+
+			// 发送请求
+			aiStreamRequest(
+				userMessage,
+				// 【核心改动】每收到 chunk 就累积 + 触发流式渲染
+				(chunk) => {
+					rawContent += chunk;
+					botBubble._rawContent = rawContent;
+					aiStreamRender(botBubble, rawContent);  // ← 每更新一次就渲染一次
+				},
+				// 错误处理
+				(errorMsg) => {
+					if (!aiAbortController?.signal.aborted) {
+						botBubble.innerHTML = renderMarkdown(errorMsg);
+						botBubble.dataset.streaming = 'false';
+					}
+					input.disabled = false;
+					sendBtn.disabled = false;
+					input.focus();
+				}
+			).finally(() => {
+				if (!aiAbortController?.signal.aborted && botBubble.dataset.streaming === 'true') {
+					// 流式结束：执行最终渲染，确保名言格式正确
+					aiFinalRender(botBubble, rawContent);
+
+					// 恢复输入
+					input.disabled = false;
+					sendBtn.disabled = false;
+					input.focus();
+				}
+			});
+		}
+
+		/**
+		 * 初始化 AI 聊天
+		 */
+		let aiinited = 0;
+		function initAIChat() {
+			if (aiinited) return;
+			aiinited = 1;
+
+			// 欢迎消息（使用 renderMarkdown 渲染）
+			aiAddMessage('bot', '❄️ 你好，我是雪域智狐，你的专业 AI 助手。\n\n深度思考，简洁回答。有什么可以帮你的？');
+
+			const input = document.getElementById('ai-input');
+			const sendBtn = document.getElementById('ai-send-btn');
+
+			// 输入框自适应高度
+			input.addEventListener('input', function () {
+				this.style.height = 'auto';
+				this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+			});
+
+			// 键盘事件：Enter 发送，Shift+Enter 换行
+			input.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter' && !e.shiftKey) {
+					e.preventDefault();
+					aiSendMessage(input.value);
+					input.value = '';
+					input.style.height = 'auto';
+				}
+			});
+
+			// 发送按钮
+			sendBtn.onclick = () => {
+				aiSendMessage(input.value);
+				input.value = '';
+				input.style.height = 'auto';
+			};
+
+			// 清空对话
+			document.getElementById('ai-clear-btn').onclick = () => {
+				if (confirm('❄️ 确定清空当前对话吗？')) {
+					document.getElementById('ai-messages').innerHTML = '';
+					aiAddMessage('bot', '❄️ 对话已清空，雪狐 ready！\n\n> "每一次重启，都是新的起点。"');
+				}
+			};
+
+			let isSelecting = false;
+
+			document.addEventListener('mousedown', (e) => {
+				if (e.target.closest('#ai-input, .ai-btn, #ai-send-btn, #ai-clear-btn')) {
+					isSelecting = false;
+					return;
+				}
+				isSelecting = true;
+			});
+
+			document.addEventListener('mouseup', () => {
+				if (!isSelecting) return;
+				isSelecting = false;
+
+				setTimeout(() => {
+					const selection = window.getSelection();
+					if (!selection || selection.rangeCount === 0) {
+						aiHideSelectionBar();
+						return;
+					}
+
+					const text = selection.toString();
+					if (!text || !text.trim()) {
+						aiHideSelectionBar();
+						return;
+					}
+
+					const range = selection.getRangeAt(0);
+					let node = range.commonAncestorContainer;
+
+					while (node && node.nodeType !== Node.ELEMENT_NODE) {
+						node = node.parentNode;
+					}
+
+					const aiBubble = node?.closest?.('.ai-bubble.bot');
+					const isInput = node?.closest?.('#ai-input, .ai-btn, #ai-send-btn, #ai-clear-btn');
+
+					if (aiBubble && !isInput) {
+						aiShowSelectionBar(text);
+					} else {
+						aiHideSelectionBar();
+					}
+				}, 10);
+			});
+
+			// 选中操作按钮
+			document.getElementById('ai-btn-summarize').onclick = () => {
+				if (!aiSelectedText?.trim()) { aiHideSelectionBar(); return; }
+				aiSendMessage(`请用一句话总结以下内容，保持专业简洁：\n\n${aiSelectedText}`);
+				aiHideSelectionBar();
+			};
+
+			document.getElementById('ai-btn-explain').onclick = () => {
+				if (!aiSelectedText?.trim()) { aiHideSelectionBar(); return; }
+				aiSendMessage(`请用通俗易懂的方式解释以下内容，突出核心要点：\n\n${aiSelectedText}`);
+				aiHideSelectionBar();
+			};
+
+			input.addEventListener('focus', aiHideSelectionBar);
+		}
+	</script>
+	<script>
+		function initAurora() {
+			const c = document.getElementById('aurora');
+			if (!c) return;
+			if (c._auroraInit) return;
+			c._auroraInit = true;
+			const x = c.getContext('2d');
+			let w = c.width = innerWidth, h = c.height = innerHeight;
+			const mouse = { x: -1000, y: -1000 };
+			const gap = 30, dot = 1;
+			const orbs = [
+				{ x: Math.random() * w, y: Math.random() * h, vx: .8, vy: .4, r: 250, s: .5 },
+				{ x: Math.random() * w, y: Math.random() * h, vx: -.6, vy: .5, r: 350, s: .4 },
+				{ x: Math.random() * w, y: Math.random() * h, vx: .4, vy: -.7, r: 300, s: .5 },
+			];
+			window.resizeAurora = function () {
+				if (document.getElementById('home-page').style.display === 'none') return;
+				w = c.width = innerWidth;
+				h = c.height = innerHeight;
+			};
+			addEventListener('resize', window.resizeAurora);
+			addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+			document.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+			(function draw() {
+				if (document.getElementById('home-page').style.display === 'none') {
+					requestAnimationFrame(draw);
+					return;
+				}
+				const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				x.clearRect(0, 0, w, h);
+				for (const o of orbs) {
+					o.x += o.vx;
+					o.y += o.vy;
+					if (o.x < -o.r || o.x > w + o.r) o.vx *= -1;
+					if (o.y < -o.r || o.y > h + o.r) o.vy *= -1;
+				}
+				const xc = Math.ceil(w / gap), yc = Math.ceil(h / gap);
+				for (let i = 0; i <= xc; i++) {
+					for (let j = 0; j <= yc; j++) {
+						const px = i * gap, py = j * gap;
+						let b = 0;
+						for (const o of orbs) {
+							const dx = px - o.x, dy = py - o.y, ds = dx * dx + dy * dy, rs = o.r * o.r;
+							if (ds < rs) {
+								const d = Math.sqrt(ds);
+								b += Math.pow(1 - d / o.r, 2) * o.s;
+							}
+						}
+						const mdx = px - mouse.x, mdy = py - mouse.y, ms = mdx * mdx + mdy * mdy, mr = 250;
+						if (ms < mr * mr) {
+							const d = Math.sqrt(ms);
+							b += Math.pow(1 - d / mr, 1.5) * 2.0;
+						}
+						const base = dark ? .05 : .03, act = Math.min(b * .8, 1), op = base + act;
+						if (op <= .02) continue;
+						let r = dot;
+						if (ms < 10000) r = dot + (1 - Math.sqrt(ms) / 100) * .5;
+						x.beginPath();
+						x.arc(px, py, r, 0, Math.PI * 2);
+						if (act > .1) {
+							if (act > .6) x.fillStyle = dark ? 'rgba(220,255,255,' + op + ')' : 'rgba(0,180,180,' + op + ')';
+							else x.fillStyle = dark ? 'rgba(45,212,191,' + op + ')' : 'rgba(13,148,136,' + op + ')';
+						} else {
+							x.fillStyle = dark ? 'rgba(255,255,255,' + op + ')' : 'rgba(0,0,0,' + op + ')';
+						}
+						x.fill();
+					}
+				}
+				requestAnimationFrame(draw);
+			})();
+		}
+		document.addEventListener('DOMContentLoaded', () => {
+			initAurora();
+		});
+	</script>
+	<script>
+		// ============================================================
+		// Amazing Luogu - 服务系统 JavaScript
+		// 支持 Markdown、KaTeX、Highlight.js 和 SVG/FontAwesome 图标
+		// ============================================================
+
+
+		// ============================================================
+		// 1. Markdown 自定义扩展
+		// ============================================================
+		const customExtensions = [
+			{
+				name: 'alignBlock',
+				level: 'block',
+				start: function (src) {
+					return src.match(/^:::\s*align\s*\{([^}]+)\}/)?.index;
+				},
+				tokenizer: function (src, tokens) {
+					const match = src.match(/^:::\s*align\s*\{([^}]+)\}([\s\S]*?)\n:::/);
+					if (match) {
+						return {
+							type: 'alignBlock',
+							raw: match[0],
+							align: match[1].trim(),
+							content: match[2].trim()
+						};
+					}
+				},
+				renderer: function (token) {
+					return `<div class="align-${token.align}">${marked.parse(token.content)}</div>`;
+				}
+			},
+			{
+				name: 'epigraph',
+				level: 'block',
+				start: function (src) {
+					return src.match(/^:::\s*epigraph(\[([^\]]+)\])?\s*:::/)?.index;
+				},
+				tokenizer: function (src, tokens) {
+					const match = src.match(/^:::\s*epigraph(\[([^\]]+)\])?\s*([\s\S]*?)\s*:::/);
+					if (match) {
+						return {
+							type: 'epigraph',
+							raw: match[0],
+							author: match[2] || '',
+							content: match[3].trim()
+						};
+					}
+				},
+				renderer: function (token) {
+					const authorPart = `<p>${token.author ? token.author : 'unknown author'}</p>`;
+					return `<div class="epigraph">${marked.parse(token.content)}${authorPart}</div>`;
+				}
+			},
+			{
+				name: 'foldable',
+				level: 'block',
+				start: function (src) {
+					return src.match(/^:{3,}/)?.index;
+				},
+				tokenizer: function (src, tokens) {
+					const match = src.match(/^(:{3,})\s*(\w+)?(\[([^\]]+)\])?(\s*\{([^}]+)\})?\s*([\s\S]*?)\s*\1/);
+					if (match && ['info', 'warning', 'success', 'error', 'bug', 'flask'].includes(match[2])) {
+						return {
+							type: 'foldable',
+							raw: match[0],
+							foldType: match[2] || 'info',
+							title: match[4] || '',
+							options: match[6] || '',
+							content: match[7].trim()
+						};
+					}
+				},
+				renderer: function (token) {
+					const isOpen = token.options.includes('open');
+					return `
+                <details class="foldable ${token.foldType}" ${isOpen ? 'open' : ''}>
+                    <summary>${token.title || '点击展开'}</summary>
+                    ${marked.parse(token.content)}
+                </details>
+            `;
+				}
+			}
+		];
+
+		marked.use({ extensions: customExtensions });
+
+
+		// ============================================================
+		// 2. 工具函数
+		// ============================================================
+
+		/**
+		 * HTML 转义，防止 XSS 攻击
+		 */
+		function escapeHtml(str) {
+			return str
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#039;');
+		}
+
+		/**
+		 * HTML 净化，移除危险标签和属性
+		 */
+		function sanitizeHTML(html) {
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(html, 'text/html');
+
+			const dangerousTags = ['script', 'link', 'meta', 'object', 'embed', 'style'];
+			dangerousTags.forEach(tag => {
+				doc.querySelectorAll(tag).forEach(el => el.remove());
+			});
+
+			doc.querySelectorAll('*').forEach(el => {
+				[...el.attributes].forEach(attr => {
+					if (attr.name.startsWith('on')) {
+						el.removeAttribute(attr.name);
+					}
+					if (attr.name.toLowerCase() === 'style') {
+						el.removeAttribute(attr.name);
+					}
+					if (attr.value && typeof attr.value === 'string' && attr.value.trim().toLowerCase().startsWith('javascript:')) {
+						el.removeAttribute(attr.name);
+					}
+				});
+			});
+
+			return doc.body.innerHTML;
+		}
+
+
+		// ============================================================
+		// 3. Markdown 渲染配置
+		// ============================================================
+
+		const mdRenderer = new marked.Renderer();
+
+		mdRenderer.code = function (code, language) {
+			const lang = language || 'plaintext';
+			let highlighted = code;
+
+			if (language && hljs.getLanguage(lang)) {
+				try {
+					highlighted = hljs.highlight(code, { language: lang, ignoreIllegals: true }).value;
+				} catch (e) {
+					console.warn('Highlight error:', e);
+				}
+			}
+
+			return `<div class="code-container"><pre><code class="language-${lang}">${highlighted}</code></pre></div>`;
+		};
+
+		marked.setOptions({
+			breaks: false,
+			gfm: true,
+			mangle: false,
+			headerIds: false,
+			renderer: mdRenderer,
+		});
+
+		function renderMarkdown(text) {
+			const tmp = document.createElement('div');
+			tmp.innerHTML = sanitizeHTML(marked.parse(text));
+
+			tmp.querySelectorAll('img').forEach(img => {
+				img.setAttribute('referrerpolicy', 'no-referrer');
+				img.setAttribute('crossorigin', 'anonymous');
+			});
+
+			renderMathInElement(tmp, {
+				delimiters: [
+					{ left: '$$', right: '$$', display: true },
+					{ left: '$', right: '$', display: false },
+					{ left: '\\(', right: '\\)', display: false },
+					{ left: '\\[', right: '\\]', display: true }
+				],
+				strict: false
+			});
+
+			return tmp.innerHTML;
+		}
+
+
+		// ============================================================
+		// 4. 主题与代码高亮
+		// ============================================================
+
+		function updateHighlightTheme() {
+			const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+				document.body.classList.contains('dark-mode') ||
+				window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+			const lightTheme = document.querySelector('link[href*="atom-one-light"]');
+			const darkTheme = document.getElementById('hljs-dark-theme');
+
+			if (isDark) {
+				if (lightTheme) lightTheme.disabled = true;
+				if (darkTheme) darkTheme.disabled = false;
+			} else {
+				if (lightTheme) lightTheme.disabled = false;
+				if (darkTheme) darkTheme.disabled = true;
+			}
+
+			document.querySelectorAll('pre code').forEach((block) => {
+				hljs.highlightElement(block);
+			});
+		}
+
+
+		// ============================================================
+		// 5. 页面控制
+		// ============================================================
+
+		function showPage(pageKey) {
+			const pages = ['home', 'article', 'paste', 'not-found', 'services-list', 'services-detail', 'download', 'ai'];
+
+			pages.forEach(k => {
+				const el = document.getElementById(`${k}-page`);
+				if (el) el.style.display = 'none';
+			});
+
+			const target = document.getElementById(`${pageKey}-page`);
+			if (target) {
+				target.style.display = 'block';
+
+				if (['article', 'paste', 'services-detail'].includes(pageKey)) {
+					const contentEl = document.getElementById(`${pageKey}-content`) || document.getElementById('service-content');
+					if (contentEl) {
+						contentEl.innerHTML = '<div class="loading"><i class="fa-solid fa-spinner"></i><span>加载中...</span></div>';
+					}
+				}
+			}
+
+			document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+			const pageMap = {
+				'home': 'home',
+				'article': 'articles',
+				'paste': 'clipboard',
+				'services-list': 'services',
+				'services-detail': 'services',
+				'download': 'download',
+				'ai': 'ai'
+			};
+
+			const activePage = pageMap[pageKey];
+			if (activePage) {
+				const activeEl = document.querySelector(`.nav-item[data-page="${activePage}"]`);
+				if (activeEl) activeEl.classList.add('active');
+			}
+
+			if (pageKey === 'home') {
+				setTimeout(() => {
+					if (window.resizeAurora) window.resizeAurora();
+					initAurora();
+				}, 50);
+			}
+		}
+
+		// ============================================================
+		// 6. 图标渲染（支持 SVG 或 FontAwesome）
+		// ============================================================
+
+		/**
+		 * 渲染服务图标
+		 * 优先级：iconSvg > icon > 默认图标
+		 * @param {Object} svc - 服务对象
+		 * @param {number} size - 图标尺寸（仅 SVG 有效）
+		 * @param {string} extraClass - 额外 CSS 类名
+		 * @returns {string} - 图标 HTML
+		 */
+		function renderServiceIcon(svc, size = 24, extraClass = '') {
+			// 优先使用 SVG 图标
+			if (svc.iconSvg && svc.iconSvg.trim().startsWith('<svg')) {
+				// 清理 SVG 字符串，提取内部内容
+				const svgContent = svc.iconSvg.replace(/<svg[^>]*>|<\/svg>/g, '').trim();
+				return `
+            <svg class="service-icon ${extraClass}" 
+                 xmlns="http://www.w3.org/2000/svg" 
+                 width="${size}" 
+                 height="${size}" 
+                 viewBox="0 0 28 28" 
+                 fill="none" 
+                 stroke="currentColor" 
+                 stroke-linecap="round" 
+                 stroke-linejoin="round">
+                ${svgContent}
+            </svg>
+        `;
+			}
+
+			if (svc.icon) {
+				return `<i class="${svc.icon} ${extraClass}"></i>`;
+			}
+
+			return `<i class="fa-solid fa-puzzle-piece ${extraClass}"></i>`;
+		}
+
+
+		// ============================================================
+		// 7. 服务数据加载与渲染
+		// ============================================================
+
+		function renderStatusBadge(status) {
+			const statusMap = {
+				'active': { text: '活跃', class: 'status-active', icon: 'fa-circle-check' },
+				'maintenance': { text: '维护中', class: 'status-maintenance', icon: 'fa-screwdriver-wrench' },
+				'inactive': { text: '已停用', class: 'status-inactive', icon: 'fa-circle-xmark' },
+				'deprecated': { text: '已废弃', class: 'status-deprecated', icon: 'fa-triangle-exclamation' }
+			};
+
+			const s = statusMap[status] || statusMap['inactive'];
+			return `<span class="status-badge ${s.class}"><i class="fa-solid ${s.icon}"></i>${s.text}</span>`;
+		}
+
+		async function fetchServicesData() {
+			try {
+				const res = await fetch('/services.json', { cache: 'no-cache' });
+				if (!res.ok) throw new Error('加载失败');
+				return await res.json();
+			} catch (e) {
+				console.error('Failed to load services:', e);
+				return { services: [] };
+			}
+		}
+
+		function renderServiceCard(svc) {
+			const tags = (svc.tags || []).map(t => `<span class="service-tag">${escapeHtml(t)}</span>`).join('');
+			const iconHtml = renderServiceIcon(svc, 28, 'service-card-icon');
+			const statusBadge = renderStatusBadge(svc.status);
+			const linkBtn = svc.link ? `
+				<a href="${escapeHtml(svc.link)}" target="_blank" rel="noopener noreferrer" class="service-link-btn" onclick="event.stopPropagation()">
+					<i class="fa-solid fa-arrow-up-right-from-square"></i>
+				</a>
+			` : '';
+
+			return `
+				<div class="service-card ${svc.status === 'maintenance' ? 'service-card-maintenance' : ''}" data-id="${svc.id}" onclick="navigateToService('${svc.id}')">
+					<div class="service-card-header">
+						${iconHtml}
+						<h3 class="service-card-title">${escapeHtml(svc.name)}</h3>
+						${linkBtn}
+					</div>
+					<div class="service-card-meta">
+						${statusBadge}
+					</div>
+					<p class="service-card-desc">${escapeHtml(svc.description || '')}</p>
+					<div class="service-tags">${tags}</div>
+				</div>
+			`;
+		}
+
+		function renderServicesGrid(services) {
+			const grid = document.getElementById('services-grid');
+			const empty = document.getElementById('services-empty');
+
+			if (services.length === 0) {
+				grid.innerHTML = '';
+				empty.style.display = 'block';
+				return;
+			}
+
+			empty.style.display = 'none';
+			grid.innerHTML = services.map(renderServiceCard).join('');
+		}
+
+		async function loadServicesList() {
+			showPage('services-list');
+			updateBreadcrumb([
+				{ text: '首页', href: '/' },
+				{ text: '服务列表', href: '/services/list' }
+			]);
+
+			const grid = document.getElementById('services-grid');
+			const loading = document.getElementById('services-loading');
+			const empty = document.getElementById('services-empty');
+			const categoryFilter = document.getElementById('categoryFilter');
+
+			grid.innerHTML = '';
+			loading.style.display = 'flex';
+			empty.style.display = 'none';
+
+			const data = await fetchServicesData();
+			const services = data.services || [];
+
+			const categories = [...new Set(services.map(s => s.category).filter(Boolean))];
+			categoryFilter.innerHTML = '<option value="">全部分类</option>' +
+				categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('');
+
+			renderServicesGrid(services);
+			loading.style.display = 'none';
+
+			document.getElementById('serviceSearch').oninput = filterServices;
+			categoryFilter.onchange = filterServices;
+		}
+
+		function filterServices() {
+			const keyword = document.getElementById('serviceSearch').value.toLowerCase();
+			const category = document.getElementById('categoryFilter').value;
+
+			fetchServicesData().then(data => {
+				let filtered = data.services || [];
+
+				if (keyword) {
+					filtered = filtered.filter(s =>
+						s.name.toLowerCase().includes(keyword) ||
+						(s.description || '').toLowerCase().includes(keyword) ||
+						(s.tags || []).some(t => t.toLowerCase().includes(keyword))
+					);
+				}
+
+				if (category) {
+					filtered = filtered.filter(s => s.category === category);
+				}
+
+				renderServicesGrid(filtered);
+			});
+		}
+
+		async function loadServiceDetail(id) {
+			showPage('services-detail');
+			updateBreadcrumb([
+				{ text: '首页', href: '/' },
+				{ text: '服务列表', href: '/services/list' },
+				{ text: id, href: `/services/${id}` }
+			]);
+
+			const contentEl = document.getElementById('service-content');
+			const metaEl = document.getElementById('service-meta');
+			const updateTimeEl = document.getElementById('serviceUpdateTime');
+
+			contentEl.innerHTML = '<div class="loading"><i class="fa-solid fa-spinner"></i><span>加载中...</span></div>';
+
+			const data = await fetchServicesData();
+			const svc = (data.services || []).find(s => s.id === id);
+
+			if (!svc) {
+				contentEl.innerHTML = `
+            <div class="empty-state">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p>服务不存在</p>
+            </div>
+        `;
+				return;
+			}
+
+			const statusBadge = renderStatusBadge(svc.status);
+			const actionBtns = `
+        <button class="action-btn" onclick="history.back()">
+            <i class="fa-solid fa-arrow-left"></i> 返回
+        </button>
+        <button class="action-btn" id="copyServiceLink">
+            <i class="fa-solid fa-link"></i> 复制链接
+        </button>
+        ${svc.link ? `
+        <a href="${escapeHtml(svc.link)}" target="_blank" rel="noopener noreferrer" class="action-btn service-visit-btn">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> 访问服务
+        </a>
+        ` : ''}
+        <span class="save-time" id="serviceUpdateTime"></span>
+    `;
+			document.querySelector('.article-header').innerHTML = actionBtns;
+
+			const iconHtml = renderServiceIcon(svc, 20, 'service-meta-icon');
+			metaEl.innerHTML = `
+        <span class="service-meta-item">${iconHtml}</span>
+        <span class="service-meta-item">${statusBadge}</span>
+        <span class="service-meta-item"><i class="fa-solid fa-tag"></i>${escapeHtml(svc.category || '未分类')}</span>
+        <span class="service-meta-item"><i class="fa-solid fa-user"></i>${escapeHtml(svc.author || '匿名')}</span>
+        <span class="service-meta-item"><i class="fa-solid fa-clock"></i>${new Date(svc.updatedAt).toLocaleString('zh-CN')}</span>
+    `;
+			updateTimeEl.textContent = `更新于 ${new Date(svc.updatedAt).toLocaleDateString('zh-CN')}`;
+
+			if (svc.status === 'maintenance') {
+				const noticeHtml = `
+            <div class="notice important-notice">
+                <h2><i class="fa-solid fa-screwdriver-wrench"></i> 维护通知</h2>
+                <p>该服务当前处于维护状态，部分功能可能不可用。请稍后再试。</p>
+            </div>
+        `;
+				contentEl.innerHTML = noticeHtml + renderMarkdown(svc.content || '');
+			} else {
+				contentEl.innerHTML = renderMarkdown(svc.content || '');
+			}
+
+			updateHighlightTheme();
+
+			document.getElementById('copyServiceLink').onclick = () => {
+				navigator.clipboard.writeText(location.href).then(() => {
+					const btn = document.getElementById('copyServiceLink');
+					const original = btn.innerHTML;
+					btn.innerHTML = '<i class="fa-solid fa-check"></i> 已复制';
+					setTimeout(() => btn.innerHTML = original, 1500);
+				});
+			};
+		}
+
+
+		// ============================================================
+		// 8. 路由导航
+		// ============================================================
+
+		function navigateToService(id) {
+			history.pushState({}, '', `/services/${id}`);
+			parseRoute();
+		}
+
+		function navigateToServicesList() {
+			history.pushState({}, '', '/services/list');
+			parseRoute();
+		}
+
+		const originalParseRoute = window.parseRoute || function () { };
+
+		window.parseRoute = function () {
+			const path = window.location.pathname;
+
+			if (path.startsWith('/services/list')) {
+				loadServicesList();
+			} else if (path.startsWith('/services/')) {
+				const id = path.split('/')[2];
+				if (id && id !== 'list') {
+					loadServiceDetail(id);
+				} else {
+					showPage('not-found');
+				}
+			} else if (path.startsWith('/download')) {
+				showPage('download');
+			} else if (path === '/ai' || path.startsWith('/ai/')) {
+				showPage('ai');
+				updateBreadcrumb([{ text: '首页', href: '/' }, { text: '雪域智狐 AI', href: '/ai' }]);
+				// 延迟初始化，确保 DOM 已渲染
+				setTimeout(initAIChat, 100);
+			} else {
+				originalParseRoute();
+			}
+		};
+
+
+		// ============================================================
+		// 9. 初始化
+		// ============================================================
+
+		document.addEventListener('DOMContentLoaded', () => {
+			parseRoute();
+			setTimeout(hideGlobalLoading, 300);
+
+			document.querySelectorAll('.nav-item').forEach(el => {
+				el.addEventListener('click', function (e) {
+					if (this.dataset.page) {
+						document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+						this.classList.add('active');
+					}
+				});
+			});
+		});
+
+		window.addEventListener('popstate', parseRoute);
+
+		function showGlobalLoading() {
+			document.getElementById('global-loading')?.classList.remove('hidden');
+		}
+
+		function hideGlobalLoading() {
+			document.getElementById('global-loading')?.classList.add('hidden');
+		}
+	</script>
+</body>
+
 </html>
