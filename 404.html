@@ -1353,11 +1353,6 @@
 					<i class="fa-solid fa-download nav-icon"></i>
 					<span class="nav-text">下载</span>
 				</a>
-				<a href="/ai" class="nav-item" data-page="ai"
-					onclick="event.preventDefault(); history.pushState({},'', '/ai'); parseRoute();">
-					<i class="fa-brands fa-openai nav-icon"></i>
-					<span class="nav-text">AI</span>
-				</a>
 			</nav>
 		</aside>
 		<div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -2818,11 +2813,6 @@
 				}
 			} else if (path.startsWith('/download')) {
 				showPage('download');
-			} else if (path === '/ai' || path.startsWith('/ai/')) {
-				showPage('ai');
-				updateBreadcrumb([{ text: '首页', href: '/' }, { text: '雪域智狐 AI', href: '/ai' }]);
-				// 延迟初始化，确保 DOM 已渲染
-				setTimeout(initAIChat, 100);
 			} else {
 				originalParseRoute();
 			}
